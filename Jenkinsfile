@@ -1,22 +1,34 @@
+//pipeline {
+   // agent any
+
+    //stages {
+      //  stage('Build') {
+        //    steps {
+          //      echo 'Build App'
+            //}
+        }//
+        //stage('Test') {
+          //  steps {
+            //    echo 'Test App'
+            }//
+        }//
+        //stage('Deploy') {
+          //  steps {
+            //    echo 'Deploy App'
+            }//
+        }//
+
+    }//
+}//
 pipeline {
-    agent any
-
+    agent any 
+    tools { maven 'Maven'}
     stages {
-        stage('Build') {
+        stage ('Build Maven'){
             steps {
-                echo 'Build App'
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/emnakamm/JUNIT-JAVA.git']]])
+                bat 'mvn clean package'
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Test App'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploy App'
-            }
-        }
-
     }
 }
